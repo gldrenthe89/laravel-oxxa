@@ -94,16 +94,33 @@ class Domains extends AbstractApi
         return $this->request(array_merge(['command' => 'autorenew', 'autorenew' => 'Y', 'sld' => $this->extractSld($domainName), 'tld' => $this->extractTld($domainName)]));
     }
 
+    /**
+     * @param $domainName
+     * @return string
+     */
     private function extractSld($domainName): string
     {
         $explodedHost = explode(".", $domainName);
         return $explodedHost[count($explodedHost) - 2];
     }
 
+    /**
+     * @param $domainName
+     * @return string
+     */
     private function extractTld($domainName): string
     {
         $explodedHost = explode(".", $domainName);
         return $explodedHost[count($explodedHost) - 1];
+    }
+
+    /**
+     * @param $params
+     * @return array
+     */
+    public function dnssec_add($params)
+    {
+        return $this->request(array_merge(['command' => 'dnssec_add'], $params));
     }
 
     /**
@@ -112,6 +129,27 @@ class Domains extends AbstractApi
      */
     public function disableAutoRenew($domainName)
     {
-        return $this->request(array_merge(['command' => 'autorenew', 'autorenew' => 'N', 'sld' => $this->extractSld($domainName), 'tld' => $this->extractTld($domainName)]));
+        return $this->request(array_merge([
+            'command' => 'autorenew', 'autorenew' => 'N', 'sld' => $this->extractSld($domainName),
+            'tld' => $this->extractTld($domainName)
+        ]));
+    }
+
+    /**
+     * @param $params
+     * @return array
+     */
+    public function dnssec_del($params)
+    {
+        return $this->request(array_merge(['command' => 'dnssec_del'], $params));
+    }
+
+    /**
+     * @param array $params
+     * @return array
+     */
+    public function dnssec_info($params)
+    {
+        return $this->request(array_merge(['command' => 'dnssec_info'], $params));
     }
 }
