@@ -1,11 +1,14 @@
 {
     "name": "nickurt/laravel-oxxa",
     "description": "Oxxa for Laravel 6.x/7.x",
-    "keywords": ["oxxa", "laravel"],
+    "keywords": [
+        "oxxa",
+        "laravel"
+    ],
     "license": "MIT",
     "require": {
-        "php": "^7.2",
-        "laravel/framework": "^6.0|^7.0|^8.0",
+        "php": "^7.2|^8.0",
+        "laravel/framework": "^6.0|^7.0|^8.0|^9.0|^10.0",
         "guzzlehttp/guzzle": "6.*|7.*"
     },
     "require-dev": {

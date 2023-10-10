@@ -84,4 +84,34 @@ class Domains extends AbstractApi
     {
         return $this->request(array_merge(['command' => 'domain_upd'], $params));
     }
+
+    /**
+     * @param array $params
+     * @return array
+     */
+    public function enableAutoRenew($domainName)
+    {
+        return $this->request(array_merge(['command' => 'autorenew', 'autorenew' => 'Y', 'sld' => $this->extractSld($domainName), 'tld' => $this->extractTld($domainName)]));
+    }
+
+    private function extractSld($domainName): string
+    {
+        $explodedHost = explode(".", $domainName);
+        return $explodedHost[count($explodedHost) - 2];
+    }
+
+    private function extractTld($domainName): string
+    {
+        $explodedHost = explode(".", $domainName);
+        return $explodedHost[count($explodedHost) - 1];
+    }
+
+    /**
+     * @param array $params
+     * @return array
+     */
+    public function disableAutoRenew($domainName)
+    {
+        return $this->request(array_merge(['command' => 'autorenew', 'autorenew' => 'N', 'sld' => $this->extractSld($domainName), 'tld' => $this->extractTld($domainName)]));
+    }
 }

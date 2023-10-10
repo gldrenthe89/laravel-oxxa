@@ -6,11 +6,11 @@ use nickurt\Oxxa\Client;
 
 abstract class AbstractApi implements ApiInterface
 {
-    /** @var \nickurt\Oxxa\Client */
+    /** @var Client */
     public $client;
 
     /**
-     * @param \nickurt\Oxxa\Client $client
+     * @param  Client  $client
      */
     public function __construct(Client $client)
     {
@@ -28,7 +28,7 @@ abstract class AbstractApi implements ApiInterface
             'apipassword' => 'MD5'.md5($this->client->getHttpClient()->getOptions()['password'])
         ], $parameters);
 
-        $parameters = ($this->client->getEnvironment() == 'test') ? array_merge(['test' => 'Y'], $parameters) : $parameters;
+        $parameters = ($this->client->getEnvironment() == 'local') ? array_merge(['test' => 'Y'], $parameters) : $parameters;
 
         $response = $this->client->getHttpClient()->get(
             $parameters
